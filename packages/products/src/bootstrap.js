@@ -9,7 +9,6 @@ const root = ReactDOM.createRoot(container);
 root.render(
    <CartProvider>
         <BrowserRouter>
-            <Header />
-            <Products />
+            <Products viewedProduct={(p)=> console.log(p)} />
         </BrowserRouter>
     </CartProvider>);

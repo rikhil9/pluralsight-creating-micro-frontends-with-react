@@ -10,7 +10,6 @@ export const DUMMY_PRODUCTS = [
   { id: 3, name: "Smartphone", price: 699 },
   { id: 4, name: "Monitor", price: 349 },
 ];
-
 export default function ProductList() {
   const { addItem } = useCart();
   return (

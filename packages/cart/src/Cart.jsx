@@ -4,7 +4,7 @@ import { useCart } from "./CartContext";
 
 
 
-export default function Cart() {
+export default function Cart({recommendations}) {
   const { items, addItem, removeItem, clearCart } = useCart();
 
   const groupedItems = items.reduce((acc, item) => {
@@ -38,11 +38,25 @@ export default function Cart() {
               </li>
             ))}
           </ul>
-          <button>
+          <button onClick={clearCart}>
             Clear Cart
           </button>
         </>
       )}
-    </div>
+
+
+
+    {Object.keys(recommendations).length > 0 && (
+      <div className="recommendations">
+        <h3>Recommendations</h3>
+        <ul>
+          {Object.values(recommendations).map((product) => (
+            <li key={product.id}>{product.name}</li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+</div>
   );
 }
