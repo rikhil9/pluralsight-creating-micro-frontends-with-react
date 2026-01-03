@@ -1,20 +1,20 @@
 import React from "react";
 import "./cart.css";
+import { useCart } from "./CartContext";
 
 
 
 export default function Cart() {
-  const [state, dispatch] = React.useReducer(cartReducer, {
-    items: ["Laptop", "Mobile"],
-  });
-  const groupedItems = state.items.reduce((acc, item) => {
+  const { items, addItem, removeItem, clearCart } = useCart();
+
+  const groupedItems = items.reduce((acc, item) => {
     acc[item] = (acc[item] || 0) + 1;
     return acc;
   }, {});
   return (
     <div className="cart-container">
       <h2>My Cart</h2>
-      {state.items.length === 0 ? (
+      {items.length === 0 ? (
         <p>Your cart is empty</p>
       ) : (
         <>
@@ -25,16 +25,12 @@ export default function Cart() {
                 <span>Quantity: {quantity}</span>
                 <div className="quantity-controls">
                   <button
-                    onClick={() =>
-                      dispatch({ type: "REMOVE_ITEM", payload: itemId })
-                    }
+                    onClick={() => removeItem(itemId)}
                   >
                     -
                   </button>
                   <button
-                    onClick={() =>
-                      dispatch({ type: "ADD_ITEM", payload: itemId })
-                    }
+                    onClick={() => addItem(itemId)}
                   >
                     +
                   </button>
@@ -42,7 +38,7 @@ export default function Cart() {
               </li>
             ))}
           </ul>
-          <button onClick={() => dispatch({ type: "CLEAR_CART" })}>
+          <button>
             Clear Cart
           </button>
         </>
